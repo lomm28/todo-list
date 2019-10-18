@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-
-import { Tabs, Button, Card, Input, Row } from 'antd';
+import { connect } from 'react-redux';
+import { Tabs, Button, Card, Input, Row, Spin, message } from 'antd';
+import { createUser, loginUser } from '../../store/actions/user';
 
 const { TabPane } = Tabs;
 
@@ -31,24 +32,59 @@ const styles = {
   },
 };
 
-const Login = () => {
+const Login = ({ createUser, loginUser }) => {
   const [state, updateState] = useState({
     username: '',
     password: '',
     activeTabIndex: tabs.Register,
     hasError: false,
+    loading: false,
   });
 
-  const send = event => {
+  const registerUser = event => {
     event.preventDefault();
     const { username, password } = state;
-    console.log(username, password);
+    updateState({ ...state, loading: true });
+    createUser({ name: username, password })
+      .then(data => {
+        updateState({
+          ...state,
+          loading: false,
+          hasError: false,
+          username: '',
+          password: '',
+        });
+        message.success(
+          'User successfully created. Please proceed to login section :)',
+        );
+        console.log(data);
+      })
+      .catch(e => {
+        updateState({ ...state, hasError: true, loading: false });
+        message.error(e.message);
+      });
+  };
 
-    // const data = {
-    //   username,
-    //   password,
-    //   csrfToken: this.settings.csrfToken,
-    // };
+  const signInUser = event => {
+    event.preventDefault();
+    const { username, password } = state;
+    updateState({ ...state, loading: true });
+    loginUser({ name: username, password })
+      .then(data => {
+        updateState({
+          ...state,
+          hasError: false,
+          loading: false,
+          username: '',
+          password: '',
+        });
+        message.success('Successfully logged in. :)');
+        console.log(data);
+      })
+      .catch(e => {
+        updateState({ ...state, hasError: true, loading: false });
+        message.error(e.message);
+      });
   };
 
   const handleOnTabChange = activeTabIndex => {
@@ -59,7 +95,7 @@ const Login = () => {
     const { username, password, hasError } = state;
     return (
       <div>
-        {hasError && <p style={styles.error}>Invalid login or password</p>}
+        {hasError && <p style={styles.error}>Opps! Something went wrong :(</p>}
         <Row justify="center">
           <Input
             value={username}
@@ -83,7 +119,7 @@ const Login = () => {
           />
           <Button
             type="primary"
-            onClick={send}
+            onClick={registerUser}
             style={styles.mt20}
             size="large"
           >
@@ -122,7 +158,7 @@ const Login = () => {
           />
           <Button
             type="primary"
-            onClick={send}
+            onClick={signInUser}
             style={styles.mt20}
             size="large"
           >
@@ -133,25 +169,30 @@ const Login = () => {
     );
   };
 
-  const { activeTabIndex } = state;
+  const { activeTabIndex, loading } = state;
   return (
     <div style={styles.container}>
-      <Card style={styles.login}>
-        <Row direction="column" gutter={16} style={{ height: '100%' }}>
-          <Row>
-            <Tabs value={activeTabIndex} onChange={handleOnTabChange}>
-              <TabPane tab="Register" key={tabs.Register} />
-              <TabPane tab="Log in" key={tabs.login} />
-            </Tabs>
+      <Spin spinning={loading}>
+        <Card style={styles.login}>
+          <Row direction="column" gutter={16} style={{ height: '100%' }}>
+            <Row>
+              <Tabs value={activeTabIndex} onChange={handleOnTabChange}>
+                <TabPane tab="Register" key={tabs.Register} />
+                <TabPane tab="Log in" key={tabs.login} />
+              </Tabs>
+            </Row>
+            <Row direction="column" justify="center">
+              {activeTabIndex === tabs.Register && renderRegisterForm()}
+              {activeTabIndex === tabs.login && renderLoginForm()}
+            </Row>
           </Row>
-          <Row direction="column" justify="center">
-            {activeTabIndex === tabs.Register && renderRegisterForm()}
-            {activeTabIndex === tabs.login && renderLoginForm()}
-          </Row>
-        </Row>
-      </Card>
+        </Card>
+      </Spin>
     </div>
   );
 };
 
-export default Login;
+export default connect(
+  null,
+  { createUser, loginUser },
+)(Login);

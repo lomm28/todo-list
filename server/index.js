@@ -1,5 +1,6 @@
 require("dotenv").config();
 const express = require("express");
+const cors = require("cors");
 const bodyParser = require("body-parser");
 const passport = require("passport");
 const passportJWT = require("passport-jwt");
@@ -27,6 +28,8 @@ const strategy = new Strategy(jwtOptions, (jwt_payload, next) => {
 passport.use(strategy);
 
 const app = express();
+
+app.use(cors());
 
 app.use(bodyParser.json());
 

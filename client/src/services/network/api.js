@@ -1,8 +1,8 @@
 import axios from 'axios';
+import settings from '../../settings.json';
 
 const instance = axios.create({
-  baseURL: '',
-  withCredentials: true,
+  baseURL: settings.baseURL,
   timeout: 5000,
 });
 

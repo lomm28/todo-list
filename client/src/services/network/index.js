@@ -4,11 +4,16 @@ const getProfile = () => {
   return api.get('profile');
 };
 
-const createUser = (name, password) => {
-  return api.get('/register', { name, password });
+const createUser = creadentials => {
+  return api.post('/register', creadentials);
+};
+
+const loginUser = creadentials => {
+  return api.post('/login', creadentials);
 };
 
 export default {
   getProfile,
   createUser,
+  loginUser,
 };
