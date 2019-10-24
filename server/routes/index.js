@@ -28,7 +28,7 @@ module.exports = (app, jwtOptions) => {
       if (user.password === password) {
         const payload = { id: user.id };
         const token = jwt.sign(payload, jwtOptions.secretOrKey);
-        res.json({ msg: "ok", token });
+        res.json({ msg: "Successfully logged in", token, user });
       } else {
         res.status(401).json({ msg: "Password is incorrect" });
       }

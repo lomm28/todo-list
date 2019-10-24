@@ -1,28 +1,14 @@
 {
-  "name": "todo-list-server",
+  "name": "todo-list",
   "version": "1.0.0",
-  "description": "To-do list using react/redux",
   "main": "index.js",
-  "scripts": {
-    "server": "node server/index.js",
-    "client": "npm run start --prefix client",
-    "dev": "concurrently \"npm run server\" \"npm run client\""
-  },
+  "repository": "https://github.com/lomm28/todo-list.git",
   "author": "Dmytro Danko",
-  "license": "ISC",
-  "dependencies": {
-    "body-parser": "^1.19.0",
-    "express": "^4.17.1",
-    "jsonwebtoken": "^8.5.1",
-    "mysql2": "^1.7.0",
-    "passport": "^0.4.0",
-    "passport-jwt": "^4.0.0",
-    "sequelize": "^5.18.0"
-  },
+  "license": "MIT",
   "devDependencies": {
-    "concurrently": "^4.1.2",
-    "cors": "^2.8.5",
-    "dotenv": "^8.1.0",
-    "nodemon": "^1.19.1"
+    "concurrently": "^5.0.0"
+  },
+  "scripts": {
+    "dev": "concurrently \"cd server && yarn run server\" \"cd client && yarn start\""
   }
 }

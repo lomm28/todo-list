@@ -83,7 +83,7 @@ const Login = ({ createUser, loginUser }) => {
       })
       .catch(e => {
         updateState({ ...state, hasError: true, loading: false });
-        message.error(e.message);
+        message.error(e.data.msg);
       });
   };
 

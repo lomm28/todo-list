@@ -2,7 +2,6 @@ import React from 'react';
 import { Provider } from 'react-redux';
 
 import AppNavigator from './navigation/AppNavigator';
-import InitialLoader from './containers/InitialLoader';
 import store from './store';
 
 import styles from './styles';
@@ -12,9 +11,7 @@ const App = () => {
   return (
     <div style={styles.container}>
       <Provider store={store}>
-        {/* <InitialLoader> */}
         <AppNavigator />
-        {/* </InitialLoader> */}
       </Provider>
     </div>
   );

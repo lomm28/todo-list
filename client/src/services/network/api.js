@@ -8,11 +8,9 @@ const instance = axios.create({
 
 instance.interceptors.response.use(
   response => {
-    console.log('response', response);
     return response.data;
   },
   error => {
-    console.log('error', error.response);
     return Promise.reject(error.response);
   },
 );
