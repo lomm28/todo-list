@@ -1,15 +1,15 @@
-import { successAction, GET_PROFILE } from '../types';
+import { successAction, CREATE_USER } from '../types';
 
 const initialState = {
-  profile: null,
+  user: null,
 };
 
 export default (state = initialState, action) => {
   switch (action.type) {
-    case successAction(GET_PROFILE): {
+    case successAction(CREATE_USER): {
       return {
         ...state,
-        profile: action.payload,
+        user: action.payload.user,
       };
     }
     default:

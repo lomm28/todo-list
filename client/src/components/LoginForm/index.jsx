@@ -1,7 +1,14 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { Tabs, Button, Card, Input, Row, Spin, message } from 'antd';
+
+import BaseForm from './BaseForm';
+import withRegister from './hoc/withLogin';
+import withLogin from './hoc/withLogin';
 import { createUser, loginUser } from '../../store/actions/user';
+
+const AuthFormWithLogin = withLogin(BaseForm);
+const AuthFormWithRegister = withRegister(BaseForm);
 
 const { TabPane } = Tabs;
 
@@ -32,7 +39,7 @@ const styles = {
   },
 };
 
-const Login = ({ createUser, loginUser }) => {
+const Login = ({ createUser, loginUser, history }) => {
   const [state, updateState] = useState({
     username: '',
     password: '',
@@ -57,35 +64,34 @@ const Login = ({ createUser, loginUser }) => {
         message.success(
           'User successfully created. Please proceed to login section :)',
         );
-        console.log(data);
-      })
-      .catch(e => {
-        updateState({ ...state, hasError: true, loading: false });
-        message.error(e.message);
-      });
-  };
-
-  const signInUser = event => {
-    event.preventDefault();
-    const { username, password } = state;
-    updateState({ ...state, loading: true });
-    loginUser({ name: username, password })
-      .then(data => {
-        updateState({
-          ...state,
-          hasError: false,
-          loading: false,
-          username: '',
-          password: '',
-        });
-        message.success('Successfully logged in. :)');
-        console.log(data);
       })
       .catch(e => {
         updateState({ ...state, hasError: true, loading: false });
         message.error(e.data.msg);
       });
   };
+
+  // const signInUser = event => {
+  //   event.preventDefault();
+  //   const { username, password } = state;
+  //   updateState({ ...state, loading: true });
+  //   loginUser({ name: username, password })
+  //     .then(data => {
+  //       updateState({
+  //         ...state,
+  //         hasError: false,
+  //         loading: false,
+  //         username: '',
+  //         password: '',
+  //       });
+  //       message.success('Successfully logged in. :)');
+  //     })
+  //     .then(() => history.push('/todos'))
+  //     .catch(e => {
+  //       updateState({ ...state, hasError: true, loading: false });
+  //       message.error(e.data.msg);
+  //     });
+  // };
 
   const handleOnTabChange = activeTabIndex => {
     updateState({ ...state, activeTabIndex });
@@ -158,7 +164,7 @@ const Login = ({ createUser, loginUser }) => {
           />
           <Button
             type="primary"
-            onClick={signInUser}
+            // onClick={signInUser}
             style={styles.mt20}
             size="large"
           >
@@ -169,7 +175,7 @@ const Login = ({ createUser, loginUser }) => {
     );
   };
 
-  const { activeTabIndex, loading } = state;
+  const { activeTabIndex, loading, username, password } = state;
   return (
     <div style={styles.container}>
       <Spin spinning={loading}>
@@ -183,7 +189,7 @@ const Login = ({ createUser, loginUser }) => {
             </Row>
             <Row direction="column" justify="center">
               {activeTabIndex === tabs.Register && renderRegisterForm()}
-              {activeTabIndex === tabs.login && renderLoginForm()}
+              {activeTabIndex === tabs.login && <AuthFormWithLogin />}
             </Row>
           </Row>
         </Card>

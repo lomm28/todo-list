@@ -1,7 +1,6 @@
-import { fork, all } from 'redux-saga/effects';
-import session from './session';
+import { fork } from 'redux-saga/effects';
+import watchUserAuthentication from './watchers';
 
 export default function* root() {
-  const watchers = [...session];
-  yield all(watchers.map(fork));
+  yield fork(watchUserAuthentication);
 }

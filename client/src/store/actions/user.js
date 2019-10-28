@@ -1,11 +1,6 @@
-import { GET_PROFILE, CREATE_USER, LOGIN_USER } from '../types';
+import { CREATE_USER, LOGIN_USER } from '../types';
 import network from '../../services/network';
 import { callApi } from './utils';
-
-export const getProfile = () => {
-  const action = () => network.getProfile();
-  return callApi(action, GET_PROFILE);
-};
 
 export const createUser = data => {
   const action = () => network.createUser(data);

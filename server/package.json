@@ -4,7 +4,8 @@
   "description": "Server for todo list app",
   "main": "index.js",
   "scripts": {
-    "server": "nodemon index.js"
+    "server": "nodemon index.js",
+    "lint:server": "eslint --ignore-path .gitignore -f table --ext .js ."
   },
   "author": "Dmytro Danko",
   "license": "ISC",
@@ -21,6 +22,9 @@
     "concurrently": "^4.1.2",
     "cors": "^2.8.5",
     "dotenv": "^8.1.0",
+    "eslint": "^6.5.1",
+    "eslint-config-airbnb-base": "^14.0.0",
+    "eslint-plugin-import": "^2.18.2",
     "nodemon": "^1.19.1",
     "prettier": "^1.18.2"
   }

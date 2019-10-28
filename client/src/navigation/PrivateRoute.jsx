@@ -1,13 +1,19 @@
 import React from 'react';
 import { Redirect, Route } from 'react-router-dom';
 
-let checkToken = null;
+const checkAuthToken = () => {
+  const authToken = localStorage.getItem('authToken');
+  if (authToken) {
+    return true;
+  }
+  return false;
+};
 
 const PrivateRoute = ({ component: Component, ...rest }) => (
   <Route
     {...rest}
     render={props =>
-      checkToken !== null ? (
+      checkAuthToken() ? (
         <Component {...props} />
       ) : (
         <Redirect

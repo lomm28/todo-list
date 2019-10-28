@@ -11,8 +11,13 @@ module.exports = (app, jwtOptions) => {
     getAllUsers().then(user => res.json(user));
   });
 
-  app.post("/register", function(req, res, next) {
+  app.post("/register", async function(req, res, next) {
     const { name, password } = req.body;
+    const user = await getUser({ name });
+    if (user) {
+      res.status(409).json({ msg: `User ${name} already exists` });
+      return false;
+    }
     createUser({ name, password }).then(user =>
       res.json({ user, msg: "account created successfully" })
     );
