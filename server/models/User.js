@@ -1,5 +1,6 @@
 const Sequelize = require("sequelize");
 const sequelize = require("../db");
+const Todo = require("./Todo");
 
 const User = sequelize.define("user", {
   name: {
@@ -10,10 +11,12 @@ const User = sequelize.define("user", {
   }
 });
 
+User.hasMany(Todo, { as: 'Todos' })
+
 User.sync()
-  .then(() => console.log("Oh yeah! User table created successfully"))
+  .then(() => console.log("User table created successfully"))
   .catch(err =>
-    console.log("BTW, did you enter wrong database credentials?", err)
+    console.log("Something went wrong", err)
   );
 
 module.exports = User;

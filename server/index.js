@@ -5,8 +5,9 @@ const bodyParser = require("body-parser");
 const passport = require("passport");
 const passportJWT = require("passport-jwt");
 require("./models/User");
+require("./models/Todo");
 
-const { getUser } = require("./utils");
+const { getUser } = require("./controllers/user");
 
 const { ExtractJwt, Strategy } = passportJWT;
 
@@ -39,4 +40,5 @@ app.use(passport.initialize());
 
 app.listen(8000, () => console.log(`Express is running on port 8000`));
 
-require("./routes")(app, jwtOptions);
+require("./routes/user")(app, jwtOptions);
+require("./routes/todo")(app);

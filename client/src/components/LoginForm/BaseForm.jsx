@@ -14,6 +14,7 @@ const BaseForm = ({ btnLabel, handleSubmit, ...props }) => {
   const onSubmit = e => {
     e.preventDefault();
     handleSubmit(username, password);
+    updateCreds({ username: '', password: '' });
   };
 
   return (

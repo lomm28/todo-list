@@ -1,4 +1,4 @@
-const User = require("./models/User");
+const User = require("../models/User");
 
 const createUser = async ({ name, password }) =>
   await User.create({ name, password });
@@ -10,4 +10,11 @@ const getUser = async obj =>
     where: obj
   });
 
-module.exports = { createUser, getAllUsers, getUser };
+const getUserById = async userId =>
+  await User.findOne({
+    where: {
+      id: userId
+    }
+  });
+
+module.exports = { createUser, getAllUsers, getUser, getUserById };
