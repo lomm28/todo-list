@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Tabs, Card, Row, Spin } from 'antd';
+import { Tabs, Card, Row } from 'antd';
 
 import BaseForm from './BaseForm';
 import withRegister from '../../containers/LoginForm/hoc/withRegister';

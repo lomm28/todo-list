@@ -9,7 +9,8 @@ const Todo = sequelize.define("todo", {
     type: Sequelize.STRING
   },
   state: {
-    type: Sequelize.STRING
+    type: Sequelize.ENUM,
+    values: ['completed', 'in progress']
   },
 });
 

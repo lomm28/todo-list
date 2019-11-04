@@ -1,7 +1,7 @@
-import { successAction, CREATE_TODO, GET_USER_TODOS, GET_ALL_TODOS } from '../types';
+import { successAction, GET_ALL_TODOS } from '../types';
 
 const initialState = {
-  todos: null,
+  todos: [],
 };
 
 export const getAllTodos = (state = initialState, action) => {

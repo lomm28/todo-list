@@ -1,10 +1,20 @@
-import { CREATE_TODO, GET_USER_TODOS, GET_ALL_TODOS } from '../types';
+import { CREATE_TODO, GET_USER_TODOS, GET_ALL_TODOS, UPDATE_TODO, DELETE_TODO } from '../types';
 import network from '../../services/network';
 import { callApi } from './utils';
 
 export const createTodo = data => {
   const action = () => network.createTodo(data);
   return callApi(action, CREATE_TODO);
+};
+
+export const updateTodo = data => {
+  const action = () => network.updateTodo(data);
+  return callApi(action, UPDATE_TODO);
+};
+
+export const deleteTodo = data => {
+  const action = () => network.deleteTodo(data);
+  return callApi(action, DELETE_TODO);
 };
 
 export const getAllTodos = () => {

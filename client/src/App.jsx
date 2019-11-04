@@ -6,6 +6,7 @@ import store from './store';
 
 import styles from './styles';
 import 'antd/dist/antd.css';
+import './styles/antd.css';
 
 const App = () => {
   return (

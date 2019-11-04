@@ -10,4 +10,26 @@ const getUserTodos = async obj =>
 const createTodo = async ({ description, state, userId }) =>
   await Todo.create({ description, state, userId });
 
-module.exports = { getAllTodos, getUserTodos, createTodo };
+const updateTodo = async todo => {
+  const { state, id } = todo;
+  try {
+    const updatedTodo = await Todo.update({ state }, { returning: true, where: { id } });
+    return updatedTodo;
+  } catch (e) {
+    return e.message;
+  }
+}
+
+const deleteTodo = async todoId => {
+  try {
+    await Todo.destroy({
+      where: {
+        id: todoId
+      }
+    });
+  } catch (e) {
+    return e.message;
+  }
+}
+
+module.exports = { getAllTodos, getUserTodos, createTodo, updateTodo, deleteTodo };

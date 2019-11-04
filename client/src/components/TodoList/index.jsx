@@ -1,7 +1,7 @@
-import React from 'react';
-import { Card, Icon, Spin } from 'antd';
-
-const { Meta } = Card;
+import React, { useState } from 'react';
+import { Spin } from 'antd';
+import AntCard from '../AntCard';
+import AntPagination from '../AntPagination';
 
 const style = {
   spinContainer: {
@@ -13,17 +13,32 @@ const style = {
   container: {
     display: 'flex',
     flexWrap: 'wrap',
+    justifyContent: 'center',
     marginTop: 15,
   },
-  card: {
-    width: 300,
-    marginRight: 15,
-    marginTop: 15,
-  }
 }
 
-const ToDoList = ({ todos }) => {
-  if (!todos) {
+const ToDoList = ({ todos, user, ...props }) => {
+  const [pagination, updatePagination] = useState({
+    minValue: 0,
+    maxValue: 10
+  });
+
+  const handlePageChange = value => {
+    if (value <= 1) {
+      updatePagination({
+        minValue: 0,
+        maxValue: 10
+      });
+    } else {
+      updatePagination({
+        minValue: pagination.maxValue,
+        maxValue: value * 10
+      });
+    }
+  };
+
+  if (!todos || !user) {
     return (
       <div style={style.spinContainer}>
         <Spin size="large" />
@@ -32,26 +47,20 @@ const ToDoList = ({ todos }) => {
   }
 
   return (
-    <div style={style.container}>
-      {todos.map(todo => (
-        <Card
-          key={todo.id}
-          style={style.card}
-          actions={[
-            <Icon type="setting" key="setting" />,
-            <Icon type="edit" key="edit" />,
-          ]}
-          extra={todo.createdAt}
-        >
-          <Meta
-            title={todo.description}
-            description={todo.state}
+    <>
+      <div style={style.container}>
+        {todos.slice(pagination.minValue, pagination.maxValue).map(todo => (
+          <AntCard
+            {...props}
+            key={todo.id}
+            todoItem={todo}
+            userId={user.id}
           />
-        </Card>
-      ))}
-    </div>
+        ))}
+      </div>
+      <AntPagination total={todos.length} pageSize={10} onChange={handlePageChange} />
+    </>
   )
-
 };
 
 export default ToDoList;

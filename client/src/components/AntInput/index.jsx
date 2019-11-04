@@ -1,17 +1,17 @@
-import React, { useState, useEffect } from 'react';
-import { connect } from 'react-redux';
+import React, { useState } from 'react';
 import { Input } from 'antd';
-import { createTodo } from '../../store/actions/todo';
 
 const { Search } = Input;
 
 const style = {
   container: {
     marginTop: 15,
+    display: 'flex',
+    justifyContent: 'flex-end'
   }
 }
 
-const AntInput = ({ user, createTodo }) => {
+const AntInput = ({ createTodo }) => {
   const [input, updateInput] = useState('');
 
   const handleOnChange = e => {
@@ -20,8 +20,8 @@ const AntInput = ({ user, createTodo }) => {
   }
 
   const addNewTodo = () => {
-    if (user && input) {
-      createTodo({ userId: user.id, description: input, state: 'in progress' });
+    if (input) {
+      createTodo(input);
       updateInput('');
     }
   };
@@ -29,6 +29,7 @@ const AntInput = ({ user, createTodo }) => {
   return (
     <div style={style.container}>
       <Search
+        maxLength={300}
         placeholder="create a new todo"
         enterButton="Add"
         size="large"
@@ -40,7 +41,4 @@ const AntInput = ({ user, createTodo }) => {
   )
 }
 
-export default connect(
-  null,
-  { createTodo },
-)(AntInput)
+export default AntInput;

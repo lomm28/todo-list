@@ -1,4 +1,4 @@
-const { getAllTodos, getUserTodos, createTodo } = require("../controllers/todo");
+const { getAllTodos, getUserTodos, createTodo, updateTodo, deleteTodo } = require("../controllers/todo");
 
 module.exports = app => {
   app.get("/todos", function (req, res) {
@@ -20,5 +20,25 @@ module.exports = app => {
     }
     const newTodo = await createTodo({ description, state, userId });
     return res.json({ newTodo, msg: "todo item created successfully" })
+  });
+
+  app.put("/updateTodo", async function (req, res) {
+    const { todoItem } = req.body;
+    try {
+      await updateTodo(todoItem);
+      res.status(200).json({ msg: `Todo id # ${todoItem.id} successfully updated` });
+    } catch (e) {
+      res.status(500).json({ msg: e.message });
+    }
+  });
+
+  app.delete("/deleteTodo/:todoId", async function (req, res) {
+    const { todoId } = req.params;
+    try {
+      await deleteTodo(todoId);
+      res.status(200).json({ msg: `Todo id # ${todoId} successfully deleted` });
+    } catch (e) {
+      res.status(500).json({ msg: e.message });
+    }
   });
 }

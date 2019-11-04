@@ -22,11 +22,21 @@ const createTodo = fields => {
   return api.post('/createTodo', fields);
 }
 
+const updateTodo = todoItem => {
+  return api.put('/updateTodo', { todoItem });
+}
+
+const deleteTodo = todoId => {
+  return api.delete(`/deleteTodo/${todoId}`);
+}
+
 export default {
   createUser,
   loginUser,
   getLoggedInUser,
   getAllTodos,
   getUserTodos,
-  createTodo
+  createTodo,
+  updateTodo,
+  deleteTodo
 };
