@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "server": "nodemon index.js",
+    "lint:fix": "eslint --fix .",
     "lint:server": "eslint --ignore-path .gitignore -f table --ext .js ."
   },
   "author": "Dmytro Danko",

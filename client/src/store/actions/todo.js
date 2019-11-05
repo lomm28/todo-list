@@ -1,4 +1,10 @@
-import { CREATE_TODO, GET_USER_TODOS, GET_ALL_TODOS, UPDATE_TODO, DELETE_TODO } from '../types';
+import {
+  CREATE_TODO,
+  GET_USER_TODOS,
+  GET_ALL_TODOS,
+  UPDATE_TODO,
+  DELETE_TODO,
+} from '../types';
 import network from '../../services/network';
 import { callApi } from './utils';
 

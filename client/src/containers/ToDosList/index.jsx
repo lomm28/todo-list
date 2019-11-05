@@ -1,12 +1,21 @@
 import React, { useState, useEffect } from 'react';
+import { arrayOf, func, shape, number } from 'prop-types';
 import { Spin } from 'antd';
 import { connect } from 'react-redux';
-import Header from '../../components/Header';
+
 import FiltersBar from '../FiltersBar';
+import Header from '../../components/Header';
 import AntInput from '../../components/AntInput';
 import TodoList from '../../components/TodoList';
-import { getAllTodos, updateTodo, deleteTodo, createTodo } from '../../store/actions/todo';
+
+import {
+  getAllTodos,
+  updateTodo,
+  deleteTodo,
+  createTodo,
+} from '../../store/actions/todo';
 import { getUser } from '../../store/actions/user';
+
 import { todos } from '../../store/selectors/todos';
 import { filters } from '../../store/selectors/filters';
 import { profile } from '../../store/selectors/user';
@@ -20,7 +29,7 @@ const ToDosList = ({
   deleteTodo,
   getUser,
   todos,
-  user
+  user,
 }) => {
   const [isLoading, updateLoading] = useState(false);
 
@@ -30,20 +39,25 @@ const ToDosList = ({
   }, [getAllTodos, getUser]);
 
   const handleTodoCreate = description => {
-    asyncHelper(createTodo, updateLoading)({ userId: user.id, description, state: 'in progress' });
-  }
+    asyncHelper(createTodo, updateLoading)({
+      userId: user.id,
+      description,
+      state: 'in progress',
+    });
+  };
 
   const handleTodoUpdate = todo => {
-    const updatedStatus = todo.state === 'in progress' ? 'completed' : 'in progress';
+    const updatedStatus =
+      todo.state === 'in progress' ? 'completed' : 'in progress';
     asyncHelper(updateTodo, updateLoading)({ ...todo, state: updatedStatus });
-  }
+  };
 
   const handleTodoDelete = todoId => {
     asyncHelper(deleteTodo, updateLoading)(todoId);
-  }
+  };
 
   return (
-    <Spin spinning={isLoading} >
+    <Spin spinning={isLoading}>
       <Header user={user} />
       <FiltersBar />
       <AntInput createTodo={handleTodoCreate} />
@@ -54,15 +68,27 @@ const ToDosList = ({
         deleteTodo={handleTodoDelete}
       />
     </Spin>
-  )
+  );
 };
 
 const mapStateToProps = state => {
   return {
-    todos: getVisibleTodos(todos(state), filters(state)),
     user: profile(state),
+    todos: getVisibleTodos(todos(state), filters(state), profile(state)),
   };
-}
+};
+
+ToDosList.propTypes = {
+  getAllTodos: func.isRequired,
+  createTodo: func.isRequired,
+  updateTodo: func.isRequired,
+  deleteTodo: func.isRequired,
+  getUser: func.isRequired,
+  todos: arrayOf(shape({})).isRequired,
+  user: shape({
+    id: number.isRequired,
+  }).isRequired,
+};
 
 export default connect(
   mapStateToProps,
@@ -71,6 +97,6 @@ export default connect(
     createTodo,
     updateTodo,
     deleteTodo,
-    getUser
+    getUser,
   },
-)(ToDosList)
+)(ToDosList);

@@ -1,23 +1,23 @@
-const Sequelize = require("sequelize");
-const sequelize = require("../db");
+/* eslint-disable no-console */
 
-const Todo = sequelize.define("todo", {
+const Sequelize = require('sequelize');
+const sequelize = require('../db');
+
+const Todo = sequelize.define('todo', {
   userId: {
-    type: Sequelize.INTEGER
+    type: Sequelize.INTEGER,
   },
   description: {
-    type: Sequelize.STRING
+    type: Sequelize.STRING,
   },
   state: {
     type: Sequelize.ENUM,
-    values: ['completed', 'in progress']
+    values: ['completed', 'in progress'],
   },
 });
 
 Todo.sync()
-  .then(() => console.log("Todos table created successfully"))
-  .catch(err =>
-    console.log("Something went wrong", err)
-  );
+  .then(() => console.log('Todos table created successfully'))
+  .catch((err) => console.log('Something went wrong', err));
 
 module.exports = Todo;

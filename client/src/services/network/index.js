@@ -10,7 +10,7 @@ const loginUser = creadentials => {
 
 const getLoggedInUser = userName => {
   return api.get('/user', userName);
-}
+};
 
 const getAllTodos = () => api.get('/todos');
 
@@ -20,15 +20,15 @@ const getUserTodos = userName => {
 
 const createTodo = fields => {
   return api.post('/createTodo', fields);
-}
+};
 
 const updateTodo = todoItem => {
   return api.put('/updateTodo', { todoItem });
-}
+};
 
 const deleteTodo = todoId => {
   return api.delete(`/deleteTodo/${todoId}`);
-}
+};
 
 export default {
   createUser,
@@ -38,5 +38,5 @@ export default {
   getUserTodos,
   createTodo,
   updateTodo,
-  deleteTodo
+  deleteTodo,
 };

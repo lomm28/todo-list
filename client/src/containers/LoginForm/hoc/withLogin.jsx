@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { func, shape } from 'prop-types';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { Spin, message } from 'antd';
@@ -12,7 +13,7 @@ const withLogin = Component => {
     const signInUser = (username, password) => {
       updateLoading(true);
       loginUser({ name: username, password })
-        .then(data => {
+        .then(() => {
           updateLoading(false);
           message.success('Successfully logged in. :)');
         })
@@ -28,6 +29,13 @@ const withLogin = Component => {
         <Component {...props} handleSubmit={signInUser} btnLabel="Login" />
       </Spin>
     );
+  };
+
+  Composed.propTypes = {
+    loginUser: func.isRequired,
+    history: shape({
+      push: func.isRequired,
+    }).isRequired,
   };
 
   return connect(

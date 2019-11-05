@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import { Button, Input, Row } from 'antd';
+import { string, func } from 'prop-types';
 
 const styles = {
   mt10: { marginTop: 10 },
   mt20: { marginTop: 20 },
 };
 
-const BaseForm = ({ btnLabel, handleSubmit, ...props }) => {
+const BaseForm = ({ btnLabel, handleSubmit }) => {
   const [creds, updateCreds] = useState({ username: '', password: '' });
 
   const { username, password } = creds;
@@ -49,6 +50,11 @@ const BaseForm = ({ btnLabel, handleSubmit, ...props }) => {
       </Button>
     </Row>
   );
+};
+
+BaseForm.propTypes = {
+  btnLabel: string.isRequired,
+  handleSubmit: func.isRequired,
 };
 
 export default BaseForm;

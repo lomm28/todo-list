@@ -1,4 +1,5 @@
 import React from 'react';
+import { shape, number, string, func } from 'prop-types';
 import { Card, Button, Tag } from 'antd';
 import moment from 'moment';
 
@@ -9,11 +10,10 @@ const style = {
     width: 300,
     marginRight: 15,
     marginTop: 15,
-  }
-}
+  },
+};
 
 const AntCard = ({ todoItem, userId, updateTodo, deleteTodo }) => {
-
   const isDisabled = todoItem.userId !== userId;
   const tagColor = todoItem.state === 'in progress' ? '#f50' : '#87d068';
 
@@ -42,7 +42,19 @@ const AntCard = ({ todoItem, userId, updateTodo, deleteTodo }) => {
         description={<Tag color={tagColor}>{todoItem.state}</Tag>}
       />
     </Card>
-  )
-}
+  );
+};
+
+AntCard.propTypes = {
+  todoItem: shape({
+    id: number.isRequired,
+    state: string.isRequired,
+    createdAt: string.isRequired,
+    description: string.isRequired,
+  }).isRequired,
+  userId: number.isRequired,
+  updateTodo: func.isRequired,
+  deleteTodo: func.isRequired,
+};
 
 export default AntCard;

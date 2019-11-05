@@ -1,3 +1,5 @@
+/* eslint-disable import/prefer-default-export */
+
 import { successAction, GET_ALL_TODOS } from '../types';
 
 const initialState = {
@@ -15,4 +17,4 @@ export const getAllTodos = (state = initialState, action) => {
     default:
       return state;
   }
-}
+};

@@ -1,4 +1,5 @@
 import React from 'react';
+import { node, string } from 'prop-types';
 import { Redirect, Route } from 'react-router-dom';
 
 const checkAuthToken = () => {
@@ -26,5 +27,10 @@ const PrivateRoute = ({ component: Component, ...rest }) => (
     }
   />
 );
+
+PrivateRoute.propTypes = {
+  component: node.isRequired,
+  location: string.isRequired,
+};
 
 export default PrivateRoute;

@@ -1,22 +1,22 @@
-const Sequelize = require("sequelize");
-const sequelize = require("../db");
-const Todo = require("./Todo");
+/* eslint-disable no-console */
 
-const User = sequelize.define("user", {
+const Sequelize = require('sequelize');
+const sequelize = require('../db');
+const Todo = require('./Todo');
+
+const User = sequelize.define('user', {
   name: {
-    type: Sequelize.STRING
+    type: Sequelize.STRING,
   },
   password: {
-    type: Sequelize.STRING
-  }
+    type: Sequelize.STRING,
+  },
 });
 
-User.hasMany(Todo, { as: 'Todos' })
+User.hasMany(Todo, { as: 'Todos' });
 
 User.sync()
-  .then(() => console.log("User table created successfully"))
-  .catch(err =>
-    console.log("Something went wrong", err)
-  );
+  .then(() => console.log('User table created successfully'))
+  .catch((err) => console.log('Something went wrong', err));
 
 module.exports = User;

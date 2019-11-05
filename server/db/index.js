@@ -1,19 +1,23 @@
-const Sequelize = require("sequelize");
-const config = require("./config");
+/* eslint-disable no-console */
 
-const { db, user, password, host } = config;
+const Sequelize = require('sequelize');
+const config = require('./config');
+
+const {
+  db, user, password, host,
+} = config;
 
 const sequelize = new Sequelize(db, user, password, {
-  dialect: "mysql",
+  dialect: 'mysql',
   host,
   dialectOptions: {
-    ssl: "Amazon RDS"
-  }
+    ssl: 'Amazon RDS',
+  },
 });
 
 sequelize
   .authenticate()
-  .then(() => console.log("Connection has been established successfully."))
-  .catch(err => console.error("Unable to connect to the database: ", err));
+  .then(() => console.log('Connection has been established successfully.'))
+  .catch((err) => console.error('Unable to connect to the database: ', err));
 
 module.exports = sequelize;

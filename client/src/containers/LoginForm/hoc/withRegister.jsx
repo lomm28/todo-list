@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { func } from 'prop-types';
 import { connect } from 'react-redux';
 import { Spin, message } from 'antd';
 
@@ -11,7 +12,7 @@ const withRegister = Component => {
     const registerUser = (username, password) => {
       updateLoading(true);
       createUser({ name: username, password })
-        .then(data => {
+        .then(() => {
           updateLoading(false);
           message.success(
             'User successfully created. Please proceed to login section :)',
@@ -28,6 +29,10 @@ const withRegister = Component => {
         <Component {...props} handleSubmit={registerUser} btnLabel="Register" />
       </Spin>
     );
+  };
+
+  Composed.propTypes = {
+    createUser: func.isRequired,
   };
 
   return connect(

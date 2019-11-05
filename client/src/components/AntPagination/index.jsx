@@ -1,4 +1,5 @@
 import React from 'react';
+import { number, func } from 'prop-types';
 import { Pagination } from 'antd';
 
 const style = {
@@ -6,9 +7,9 @@ const style = {
     marginTop: 15,
     marginBottom: 15,
     display: 'flex',
-    justifyContent: 'flex-end'
-  }
-}
+    justifyContent: 'flex-end',
+  },
+};
 
 const AntPagination = ({ total, pageSize, onChange }) => {
   return (
@@ -20,7 +21,13 @@ const AntPagination = ({ total, pageSize, onChange }) => {
         pageSize={pageSize}
       />
     </div>
-  )
-}
+  );
+};
+
+AntPagination.propTypes = {
+  total: number.isRequired,
+  pageSize: number.isRequired,
+  onChange: func.isRequired,
+};
 
 export default AntPagination;

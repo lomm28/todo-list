@@ -1,5 +1,9 @@
 import { fork } from 'redux-saga/effects';
-import { watchCreateNewTodo, watchUpdateTodo, watchDeleteTodo } from './watchers';
+import {
+  watchCreateNewTodo,
+  watchUpdateTodo,
+  watchDeleteTodo,
+} from './watchers';
 
 export default function* root() {
   yield fork(watchCreateNewTodo);
