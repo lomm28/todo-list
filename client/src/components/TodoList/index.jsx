@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { shape, number } from 'prop-types';
+import { shape, number, arrayOf } from 'prop-types';
 import { Spin } from 'antd';
 import AntCard from '../AntCard';
 import AntPagination from '../AntPagination';
@@ -63,11 +63,17 @@ const ToDoList = ({ todos, user, ...props }) => {
   );
 };
 
+ToDoList.defaultProps = {
+  user: {
+    id: 0,
+  },
+};
+
 ToDoList.propTypes = {
-  todos: shape({}).isRequired,
+  todos: arrayOf(shape({})).isRequired,
   user: shape({
     id: number.isRequired,
-  }).isRequired,
+  }),
 };
 
 export default ToDoList;

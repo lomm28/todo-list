@@ -78,6 +78,12 @@ const mapStateToProps = state => {
   };
 };
 
+ToDosList.defaultProps = {
+  user: {
+    id: 0,
+  },
+};
+
 ToDosList.propTypes = {
   getAllTodos: func.isRequired,
   createTodo: func.isRequired,
@@ -87,7 +93,7 @@ ToDosList.propTypes = {
   todos: arrayOf(shape({})).isRequired,
   user: shape({
     id: number.isRequired,
-  }).isRequired,
+  }),
 };
 
 export default connect(

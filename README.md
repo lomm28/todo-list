@@ -2,6 +2,8 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 ## Installing app dependencies
 
+### `yarn install`
+
 ### `cd client && yarn install`
 
 ### `cd server && yarn install`

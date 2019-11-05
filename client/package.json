@@ -37,7 +37,6 @@
     ]
   },
   "devDependencies": {
-    "babel-eslint": "^10.0.3",
     "eslint-config-airbnb": "^18.0.1",
     "eslint-config-prettier": "^6.2.0",
     "eslint-plugin-jest": "^22.17.0",
