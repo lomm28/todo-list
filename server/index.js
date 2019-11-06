@@ -1,6 +1,5 @@
 /* eslint-disable import/no-extraneous-dependencies */
 
-require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
@@ -10,13 +9,9 @@ require('./models/User');
 require('./models/Todo');
 
 const { getUser } = require('./controllers/user');
+const jwtOptions = require('./token/options');
 
-const { ExtractJwt, Strategy } = passportJWT;
-
-const jwtOptions = {
-  jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-  secretOrKey: process.env.JWT_SECRET,
-};
+const { Strategy } = passportJWT;
 
 const strategy = new Strategy(jwtOptions, (jwtPayload, next) => {
   const user = getUser({ id: jwtPayload.id });
@@ -42,5 +37,5 @@ app.use(passport.initialize());
 // eslint-disable-next-line
 app.listen(8000, () => console.log('Express is running on port 8000'));
 
-require('./routes/user')(app, jwtOptions);
+require('./routes/user')(app);
 require('./routes/todo')(app);

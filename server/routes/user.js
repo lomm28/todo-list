@@ -3,12 +3,15 @@ const {
   getAllUsers, createUser, getUser, getUserById,
 } = require('../controllers/user');
 
-module.exports = (app, jwtOptions) => {
-  app.get('/', (req, res) => {
+const jwtOptions = require('../token/options');
+const checkIfAuthorized = require('../middlewares/checkifAuthorized');
+
+module.exports = (app) => {
+  app.get('/', checkIfAuthorized, (req, res) => {
     res.json({ message: 'Express is up!' });
   });
 
-  app.get('/users', (req, res) => {
+  app.get('/users', checkIfAuthorized, (req, res) => {
     getAllUsers().then((user) => res.json(user));
   });
 
@@ -53,11 +56,4 @@ module.exports = (app, jwtOptions) => {
       }
     }
   });
-
-  // app.get("/todos", passport.authenticate("jwt", { session: false }), function (
-  //   req,
-  //   res
-  // ) {
-  //   res.json("Success! You can now see this without a token.");
-  // });
 };

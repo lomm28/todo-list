@@ -2,12 +2,14 @@ const {
   getAllTodos, createTodo, updateTodo, deleteTodo,
 } = require('../controllers/todo');
 
+const checkIfAuthorized = require('../middlewares/checkifAuthorized');
+
 module.exports = (app) => {
-  app.get('/todos', (req, res) => {
+  app.get('/todos', checkIfAuthorized, (req, res) => {
     getAllTodos().then((todos) => res.json(todos));
   });
 
-  app.post('/createTodo', async (req, res) => {
+  app.post('/createTodo', checkIfAuthorized, async (req, res) => {
     const { description, state, userId } = req.body;
     if (!description || !state) {
       res.status(422).json({ msg: 'Please provide missing fields' });
@@ -17,7 +19,7 @@ module.exports = (app) => {
     return res.json({ newTodo, msg: 'todo item created successfully' });
   });
 
-  app.put('/updateTodo', async (req, res) => {
+  app.put('/updateTodo', checkIfAuthorized, async (req, res) => {
     const { todoItem } = req.body;
     try {
       await updateTodo(todoItem);
@@ -27,7 +29,7 @@ module.exports = (app) => {
     }
   });
 
-  app.delete('/deleteTodo/:todoId', async (req, res) => {
+  app.delete('/deleteTodo/:todoId', checkIfAuthorized, async (req, res) => {
     const { todoId } = req.params;
     try {
       await deleteTodo(todoId);
