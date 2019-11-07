@@ -13,7 +13,7 @@ const checkIfAuthorized = (req, res, next) => {
       return next();
     }
   }
-  return res.status(401).send('Please login or create account!');
+  return res.status(401).json({ msg: 'Please login or create account!' });
 };
 
 module.exports = checkIfAuthorized;

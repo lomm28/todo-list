@@ -19,7 +19,9 @@ instance.interceptors.response.use(
 
 instance.interceptors.request.use(config => {
   const authToken = localStorage.getItem('authToken');
-  config.headers.Authorization = authToken;
+  if (authToken) {
+    config.headers.Authorization = authToken;
+  }
   return config;
 });
 
