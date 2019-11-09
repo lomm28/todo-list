@@ -6,13 +6,13 @@ const {
 const jwtOptions = require('../token/options');
 const checkIfAuthorized = require('../middlewares/checkifAuthorized');
 
-module.exports = (app) => {
+module.exports = app => {
   app.get('/', checkIfAuthorized, (req, res) => {
     res.json({ message: 'Express is up!' });
   });
 
   app.get('/users', checkIfAuthorized, (req, res) => {
-    getAllUsers().then((user) => res.json(user));
+    getAllUsers().then(user => res.json(user));
   });
 
   app.get('/user', async (req, res) => {
@@ -37,7 +37,7 @@ module.exports = (app) => {
       return false;
     }
     return createUser({ name, password })
-      .then((user) => res.json({ user, msg: 'account created successfully' }));
+      .then(user => res.json({ user, msg: 'account created successfully' }));
   });
 
   app.post('/login', async (req, res) => {

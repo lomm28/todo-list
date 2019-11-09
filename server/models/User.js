@@ -1,5 +1,3 @@
-/* eslint-disable no-console */
-
 const Sequelize = require('sequelize');
 const sequelize = require('../db');
 const Todo = require('./Todo');
@@ -17,6 +15,6 @@ User.hasMany(Todo, { as: 'Todos' });
 
 User.sync()
   .then(() => console.log('User table created successfully'))
-  .catch((err) => console.log('Something went wrong', err));
+  .catch(err => console.log('Something went wrong', err));
 
 module.exports = User;

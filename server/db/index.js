@@ -1,5 +1,3 @@
-/* eslint-disable no-console */
-
 const Sequelize = require('sequelize');
 const config = require('./config');
 
@@ -18,6 +16,6 @@ const sequelize = new Sequelize(db, user, password, {
 sequelize
   .authenticate()
   .then(() => console.log('Connection has been established successfully.'))
-  .catch((err) => console.error('Unable to connect to the database: ', err));
+  .catch(err => console.error('Unable to connect to the database: ', err));
 
 module.exports = sequelize;

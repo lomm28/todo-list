@@ -4,9 +4,9 @@ const {
 
 const checkIfAuthorized = require('../middlewares/checkifAuthorized');
 
-module.exports = (app) => {
+module.exports = app => {
   app.get('/todos', checkIfAuthorized, (req, res) => {
-    getAllTodos().then((todos) => res.json(todos));
+    getAllTodos().then(todos => res.json(todos));
   });
 
   app.post('/createTodo', checkIfAuthorized, async (req, res) => {
@@ -23,7 +23,9 @@ module.exports = (app) => {
     const { todoItem } = req.body;
     try {
       await updateTodo(todoItem);
-      res.status(200).json({ msg: `Todo id # ${todoItem.id} successfully updated` });
+      res
+        .status(200)
+        .json({ msg: `Todo id # ${todoItem.id} successfully updated` });
     } catch (e) {
       res.status(500).json({ msg: e.message });
     }
