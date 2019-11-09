@@ -35,10 +35,7 @@ const withRegister = Component => {
     createUser: func.isRequired,
   };
 
-  return connect(
-    null,
-    { createUser },
-  )(Composed);
+  return connect(null, { createUser })(Composed);
 };
 
 export default withRegister;

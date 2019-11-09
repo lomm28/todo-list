@@ -39,6 +39,7 @@ const ToDosList = ({
   }, [getAllTodos, getUser]);
 
   const handleTodoCreate = description => {
+    // eslint-disable-next-line
     asyncHelper(createTodo, updateLoading)({
       userId: user.id,
       description,
@@ -96,13 +97,10 @@ ToDosList.propTypes = {
   }),
 };
 
-export default connect(
-  mapStateToProps,
-  {
-    getAllTodos,
-    createTodo,
-    updateTodo,
-    deleteTodo,
-    getUser,
-  },
-)(ToDosList);
+export default connect(mapStateToProps, {
+  getAllTodos,
+  createTodo,
+  updateTodo,
+  deleteTodo,
+  getUser,
+})(ToDosList);

@@ -78,7 +78,4 @@ FiltersBar.propTypes = {
   setVisibilityFilter: func.isRequired,
 };
 
-export default connect(
-  null,
-  { setVisibilityFilter },
-)(FiltersBar);
+export default connect(null, { setVisibilityFilter })(FiltersBar);

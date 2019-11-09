@@ -38,10 +38,7 @@ const withLogin = Component => {
     }).isRequired,
   };
 
-  return connect(
-    null,
-    { loginUser },
-  )(withRouter(Composed));
+  return connect(null, { loginUser })(withRouter(Composed));
 };
 
 export default withLogin;
